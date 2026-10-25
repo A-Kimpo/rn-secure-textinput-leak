@@ -1,0 +1,24 @@
+--- a/ReactAndroid/src/main/java/com/facebook/react/views/textinput/ReactEditText.kt
++++ b/ReactAndroid/src/main/java/com/facebook/react/views/textinput/ReactEditText.kt
+@@ -27,6 +27,8 @@
+ import android.text.TextWatcher
+ import android.text.method.KeyListener
+ import android.text.method.QwertyKeyListener
++import android.text.style.CharacterStyle
++import android.text.style.ParagraphStyle
+ import android.util.TypedValue
+ import android.view.ActionMode
+ import android.view.DragEvent
+@@ -1197,6 +1199,12 @@
+         sb.append(currentText.subSequence(0, currentText.length))
+       } catch (e: IndexOutOfBoundsException) {
+         logSoftException(TAG, e)
++      }
++      // The copy only feeds measurement. Editor bookkeeping spans must not come along: some of them
++      // reference this view's Editable (PasswordTransformationMethod.Visible), and the copy lives in a
++      // static cache that is evicted only from finalize(), so the view would never become unreachable.
++      stripSpansOfKind(sb, Any::class.java) { span ->
++        span !is CharacterStyle && span !is ParagraphStyle && span !is ReactSpan
+       }
+     }
+ 
