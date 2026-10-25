@@ -18,7 +18,7 @@ The cause is `TextLayoutManager.tagToSpannableCache`. `ReactEditText.updateCache
 
 ## Run
 
-`android/app/debug.keystore` is the standard file from the React Native template and is not committed here. Copy it from any `npx @react-native-community/cli init` project.
+`android/app/debug.keystore` is the standard debug keystore from the React Native template, so the release build signs as is.
 
 ```sh
 npm install
