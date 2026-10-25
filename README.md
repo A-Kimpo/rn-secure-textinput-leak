@@ -2,7 +2,7 @@
 
 A minimal React Native 0.88.0 app (no dependencies besides `react` and `react-native`). An unmounted `<TextInput secureTextEntry />` that received typed input stays strongly reachable for the life of the process. After the Activity is recreated, the old Activity stays too.
 
-The cause is `TextLayoutManager.tagToSpannableCache`. `ReactEditText.updateCachedSpannable()` copies the text with all spans into it, including `PasswordTransformationMethod.Visible`, which references the field's Editable. The entry is evicted only from `ReactEditText.finalize()`, which can then never run. The full analysis is in the issue: ISSUE_LINK.
+The cause is `TextLayoutManager.tagToSpannableCache`. `ReactEditText.updateCachedSpannable()` copies the text with all spans into it, including `PasswordTransformationMethod.Visible`, which references the field's Editable. The entry is evicted only from `ReactEditText.finalize()`, which can then never run. The full analysis is in the issue: https://github.com/react/react-native/issues/59469.
 
 ## What is here
 
